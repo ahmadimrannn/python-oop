@@ -16,12 +16,52 @@ class Employee:
         self.pay = int(self.pay * self.raise_amt)
 
 class Developer(Employee):
-    pass
+    raise_amt = 1.20
+
+    def __init__(self, first, last, pay, prog_lang):
+        super().__init__(first, last, pay)
+        self.prog_lang = prog_lang
+
+class Manager(Employee):
+    def __init__(self, first, last, pay, employees=None):
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+
+    def add_emp(self, emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
+
+    def remove_emp(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+
+    def list_employees(self):
+        for emp in self.employees:
+            print(f"--> {emp.full_name()}")
 
 
-emp_1 = Developer("Ahmad", "Imran", 60000)
-emp_2 = Employee("Corey", "Schafer", 120000)
 
-print(emp_1.pay)
-emp_1.apply_raise()
-print(emp_1.pay)
+emp_1 = Developer("Ahmad", "Imran", 60000, "Python")
+emp_2 = Developer("Corey", "Schafer", 120000, "C++")
+
+manager = Manager("Hassan", "Umer", 80000, [emp_1])
+
+manager.list_employees()
+
+print("-" * 20)
+
+manager.add_emp(emp_2)
+manager.list_employees()
+
+print("-" * 20)
+
+manager.remove_emp(emp_1)
+manager.list_employees()
+
+print("-" * 20)
+
+print(isinstance(emp_1, Employee))
+print(issubclass(Manager, Employee))
