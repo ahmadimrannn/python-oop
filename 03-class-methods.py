@@ -26,6 +26,11 @@ class Person:
     def set_family_head(cls, head):
         cls.family_head = head
 
+    @classmethod 
+    def form_person(cls, person_str):
+        first, last, age, gender, occupation = person_str.split(",")
+        return cls(first, last, age, gender, occupation)
+
     # Static methods don't take anything automatically like self or cls
 
 person1 = Person("Ahmad", "Imran", 18, "male", "AI Engineer")
@@ -36,3 +41,7 @@ person1.set_family_head("Ahmad Imran")
 print(Person.family_head)
 print(person1.family_head)
 print(person2.family_head)
+
+person_string = "Talha, Irfan, 18, male, ai engineer"
+person3 = Person.form_person(person_string)
+print(person3.first_name)
